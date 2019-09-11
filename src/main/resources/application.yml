@@ -1,0 +1,7 @@
+jandi:
+  base-url: https://wh.jandi.com/connect-api/webhook
+  method: POST
+  header:
+    Accept: application/vnd.tosslab.jandi-v2+json
+    Content-Type: application/json
+  urls:
