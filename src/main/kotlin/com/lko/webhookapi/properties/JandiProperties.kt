@@ -15,6 +15,17 @@ class JandiProperties {
 }
 
 class WebHook {
+  companion object {
+    fun emptyWebHook():WebHook {
+      return WebHook()
+    }
+  }
+
   lateinit var alias:String
   lateinit var url: String
+
+  fun isEmpty():Boolean {
+    return alias.isNullOrEmpty()
+  }
 }
+

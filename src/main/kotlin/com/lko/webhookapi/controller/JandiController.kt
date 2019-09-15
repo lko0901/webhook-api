@@ -1,26 +1,28 @@
 package com.lko.webhookapi.controller
 
-import com.lko.webhookapi.properties.WebHook
-import com.sun.javaws.exceptions.InvalidArgumentException
+import com.lko.webhookapi.properties.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.client.RestTemplate
 
 @RestController
-class JandiController(@Qualifier("jandiWebHooks")private val jandiWebHooks: MutableList<WebHook>) {
+class JandiController(@Qualifier("jandiWebHooks")private val jandiWebHooks: MutableList<WebHook>,
+                      @Qualifier("jandi") private val jandi: RestTemplate) {
 
   @PostMapping("/send/{alias}")
   fun sendToAlias(@PathVariable alias:String) {
-    if (!validAlias(alias)) {
-      throw InvalidArgumentException(arrayOf("일치하는 webhook이 없습니다."))
+    var webHook:WebHook = validAlias(alias)
+    if (!webHook.isEmpty()) {
+
     }
   }
 
-  private fun validAlias(alias:String): Boolean {
+  private fun validAlias(alias:String): WebHook {
     for (webHook in jandiWebHooks) {
-      if (webHook.alias == alias) return true
+      if (webHook.alias == alias) return webHook
     }
-    return false
+    return WebHook.emptyWebHook()
   }
 }
