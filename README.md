@@ -83,6 +83,15 @@ Content-Type: application/json
 {  "body": "Body Text" ,  "title": "Title Text" ,  "description": "any description"  }
 ```
 
+curl 이용 시
+```
+curl \
+-H "Accept: application/json" \
+-H "Content-Type: application/json" \
+-d '{  "body": "Body Text" ,  "title": "Title Text" ,  "description": "any description"  }' \
+http://localhost:8080/jandi/send/twotwo
+```
+
 #### Slack
 Todo
 
