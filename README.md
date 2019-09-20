@@ -25,8 +25,8 @@ http://localhost:8080/swagger-ui.html
 ```
 
 ### Usage
-#### Application setting(by yaml)
-
+#### Jandi(잔디)
+##### application.yml setting
 ```
 spring:
   profiles: jandi
@@ -45,21 +45,6 @@ jandi:
 
 ```
 
-```
-spring:
-  profiles: slack
-
-slack: TODO
-```
-
-```
-spring:
-  profiles: telegram
-
-telegram: TODO
-```
-
-#### Jandi(잔디)
 등록된 alias 목록 조회
 ```
 GET http://localhost:8080/jandi/aliases
@@ -115,3 +100,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## TODO
 * slack modules
 * telegram modules
+* use key/value store
