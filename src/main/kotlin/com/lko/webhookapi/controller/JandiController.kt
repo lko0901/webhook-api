@@ -1,28 +1,21 @@
 package com.lko.webhookapi.controller
 
-import com.lko.webhookapi.properties.*
+import com.lko.webhookapi.jandi.JandiService
+import com.lko.webhookapi.jandi.properties.*
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.client.RestTemplate
+import org.springframework.context.annotation.Profile
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
-@RestController
-class JandiController(@Qualifier("jandiWebHooks")private val jandiWebHooks: MutableList<WebHook>,
-                      @Qualifier("jandi") private val jandi: RestTemplate) {
+@Profile("jandi")
+@RestController("/jandi")
+class JandiController(@Qualifier("jandiWebHooks") private val jandiWebHooks: MutableList<WebHook>,
+                      private val jandiService: JandiService) {
 
-  @PostMapping("/send/{alias}")
-  fun sendToAlias(@PathVariable alias:String) {
-    var webHook:WebHook = validAlias(alias)
-    if (!webHook.isEmpty()) {
+  @GetMapping(value = "/aliases")
+  fun getAliases(): ResponseEntity<Map<String, String>> = jandiService.aliases()
 
-    }
-  }
-
-  private fun validAlias(alias:String): WebHook {
-    for (webHook in jandiWebHooks) {
-      if (webHook.alias == alias) return webHook
-    }
-    return WebHook.emptyWebHook()
-  }
+  @PostMapping(value = "/send/{alias}")
+  fun sendToAlias(@PathVariable alias: String,
+                  @RequestBody params: MutableMap<String, String>): ResponseEntity<JandiResponse> = jandiService.send(alias, params)
 }

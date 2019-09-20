@@ -11,6 +11,8 @@ group = "com.lko"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
+val swaggerVersion by extra { "2.9.2" }
+
 val developmentOnly by configurations.creating
 configurations {
   runtimeClasspath {
@@ -28,9 +30,12 @@ repositories {
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+  compile("io.springfox:springfox-swagger2:$swaggerVersion")
+  compile("io.springfox:springfox-swagger-ui:$swaggerVersion")
   compileOnly("org.projectlombok:lombok")
   developmentOnly("org.springframework.boot:spring-boot-devtools")
   annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

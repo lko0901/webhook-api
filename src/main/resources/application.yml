@@ -1,7 +1,25 @@
+logging:
+  level:
+    root: info
+
+spring:
+  profiles:
+    active: jandi
+
+---
+spring:
+  profiles: jandi
+
 jandi:
-  base-url: https://wh.jandi.com/connect-api/webhook
-  method: POST
-  header:
+  headers:
     Accept: application/vnd.tosslab.jandi-v2+json
     Content-Type: application/json
-  urls:
+  webHooks:
+    - alias: jeniffer-monitoring
+      url: https://wh.jandi.com/connect-api/webhook/11111111/11111111111111111111111111111111
+      template: '{ "body": "Jenniffer mornitoring alert", "connectColor": "#FAC11B", "connectInfo": [ { "title": "제니퍼 모니터링", "description": "{{monitoring_description}}" } ]}'
+    - alias: twotwo
+      url: https://wh.jandi.com/connect-api/webhook/22222222/22222222222222222222222222222222
+      template: '{ "body": "{{body}}", "connectColor": "#FAC11B", "connectInfo": [ { "title": "{{title}}", "description": "{{description}}" } ]}'
+
+
