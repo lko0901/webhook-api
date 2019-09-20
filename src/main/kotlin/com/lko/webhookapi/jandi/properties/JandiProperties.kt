@@ -31,6 +31,6 @@ class WebHook {
 }
 
 class JandiResponse {
-  var code: String = ""
-  var msg: String = ""
+  var code: String = "200"
+  var msg: String = "OK"
 }
